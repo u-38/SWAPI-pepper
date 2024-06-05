@@ -46,3 +46,5 @@ To run this project locally, follow these steps:
    ```bash
    git clone https://github.com/your-username/star-wars-battle-game.git
    cd swapi
+   npm install
+   npm start
