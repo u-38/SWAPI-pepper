@@ -1,0 +1,12 @@
+<div>
+  <button mat-raised-button color="primary" (click)="playGame()">Play Game</button>
+  <div>
+      <app-feature-person />
+  </div>
+
+  <div *ngIf="starship">
+    <app-feature-starship [starship]=""></app-feature-starship>
+  </div>
+  <h2 *ngIf="winner">{{ winner.name }} wins!</h2>
+  <button mat-raised-button color="accent" (click)="resetGame()" *ngIf="winner">Play Again</button>
+</div>

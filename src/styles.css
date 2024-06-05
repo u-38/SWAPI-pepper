@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #303030;
+  color: #fff;
+}
+
+body.light-theme {
+  background-color: #e0c842;
+}
