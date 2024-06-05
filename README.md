@@ -1,27 +1,46 @@
-# Swapi
+# Star Wars Battle Game
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
+Welcome to the Star Wars Battle Game! This is a fun and interactive test where you'll build an application using the Star Wars API (SWAPI) to select random people or starships and determine who would win based on a common attribute.
 
-## Development server
+## Table of Contents
+- [Introduction](#introduction)
+- [Features](#features)
+- [Bonus Points](#bonus-points)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Best Practices](#best-practices)
+- [Acknowledgements](#acknowledgements)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Introduction
 
-## Code scaffolding
+- People have mass, and the person with greater mass wins.
+- Starships have crew, and the starship with more crew wins.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The app should render the attributes from the resource in a simple web page that allows you to 'play' the game. 
+Once two cards are displayed, the app should declare one of the cards a winner based on the higher common attribute. 
+After displaying the winning card, the user should be able to play again using an action button that repeats the same request.
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Fetch random people or starships from SWAPI.
+- Display details of people and starships in a card format.
+- Determine and display the winner based on the common attribute (mass for people, crew for starships).
+- Option to play again and fetch new random people or starships.
 
-## Running unit tests
+## Bonus Points
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+These features are not required but will add to your portfolio in an interview:
 
-## Running end-to-end tests
+1. **Score Counter**: If there are two players, left and right, show how many times each side has won.
+2. **Resource Selection**: Option to select which resource to play against.
+3. **Angular Material**: Use Angular Material and display the details in a card. [Angular Material Cards](https://material.angular.io/components/card)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Installation
 
-## Further help
+To run this project locally, follow these steps:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/star-wars-battle-game.git
+   cd swapi
