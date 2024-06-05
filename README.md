@@ -1,6 +1,6 @@
-# Star Wars Battle Game
+# Star Wars Battle Constructor
 
-Welcome to the Star Wars Battle Game! This is a fun and interactive test where you'll build an application using the Star Wars API (SWAPI) to select random people or starships and determine who would win based on a common attribute.
+Welcome to the Star Wars Battle Constructor! This is a fun and interactive test where you'll build an application using the Star Wars API (SWAPI) to select random people or starships and determine who would win based on a common attribute.
 
 ## Table of Contents
 - [Introduction](#introduction)
