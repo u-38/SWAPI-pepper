@@ -1,7 +1,8 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {Starship} from "../starship.model";
+import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {Starship} from "../../shared/model/starship.model";
 import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardSubtitle} from "@angular/material/card";
 import {StarshipService} from "../data/starship.service";
+import {Person} from "../../shared/model/person.model";
 
 @Component({
   selector: 'app-feature-starship',
@@ -18,6 +19,8 @@ import {StarshipService} from "../data/starship.service";
 })
 
 export class FeatureStarshipComponent implements OnInit {
+  @Output() starshipLoaded = new EventEmitter<Starship>();
+
   starship: Starship | null = null;
   private maxRetries = 10;
 
@@ -40,6 +43,9 @@ export class FeatureStarshipComponent implements OnInit {
         } else {
           const imageUrl = `https://starwars-visualguide.com/assets/img/starships/${randomId}.jpg`;
           this.checkImageAvailability(imageUrl).then(isAvailable => {
+            this.starship = data;
+            this.starship.crewNumber = Number(data.crew.replace(/,/g, ''));
+
             if (isAvailable) {
               this.starship = data;
               this.starship.image = imageUrl;

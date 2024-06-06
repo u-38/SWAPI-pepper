@@ -18,8 +18,10 @@
 
   <div class="game-fight">
     <div *ngIf="!winner">
-      <app-feature-person *ngIf="fightType === FightType.Person" />
-      <app-feature-starship *ngIf="fightType === FightType.Starship" />
+      <app-feature-person (personLoaded)="onPersonLoaded($event)"
+                          *ngIf="fightType === FightType.Person" />
+      <app-feature-starship (starshipLoaded)=onStarshipLoaded($event)
+                            *ngIf="fightType === FightType.Starship" />
     </div>
 
     <div class="centered-content" *ngIf="!winner">
@@ -35,13 +37,15 @@
     </div>
 
     <div *ngIf="!winner">
-      <app-feature-person *ngIf="fightType === FightType.Person" />
-      <app-feature-starship *ngIf="fightType === FightType.Starship" />
+      <app-feature-person (personLoaded)="onPersonLoaded($event)"
+                          *ngIf="fightType === FightType.Person" />
+      <app-feature-starship (starshipLoaded)=onStarshipLoaded($event)
+                            *ngIf="fightType === FightType.Starship" />
     </div>
 
     <div class="winner-img centered-content" [@winnerAnimation]="winnerState" *ngIf="winner">
       <h2 *ngIf="winner">{{ winner.name }} wins!</h2>
-      <app-feature-person></app-feature-person>
+      <app-feature-starship />
     </div>
   </div>
 

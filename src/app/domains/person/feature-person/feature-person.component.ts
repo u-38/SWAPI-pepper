@@ -1,6 +1,6 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
-import {Person} from './person.model';
+import {Person} from '../../shared/model/person.model';
 import {PersonService} from '../data/person.service'; // Ensure this path is correct
 import {MatButtonModule} from '@angular/material/button';
 import {NgStyle} from "@angular/common";
@@ -32,6 +32,9 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 })
 
 export class FeaturePersonComponent implements OnInit {
+
+  @Output() personLoaded = new EventEmitter<Person>();
+
   person: Person | null = null;
   private maxRetries = 10;
 
@@ -53,6 +56,7 @@ export class FeaturePersonComponent implements OnInit {
       } else {
         this.person = data;
         this.person.image = `https://starwars-visualguide.com/assets/img/characters/${randomId}.jpg`;
+        this.personLoaded.emit(this.person);
       }
     });
   }

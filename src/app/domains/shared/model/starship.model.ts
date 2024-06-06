@@ -18,4 +18,5 @@ export interface Starship {
   created: string;
   edited: string;
   image: string;
+  crewNumber: number;
 }
