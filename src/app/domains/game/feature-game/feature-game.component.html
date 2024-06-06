@@ -1,15 +1,31 @@
 <div>
+
+
+
   <div class="button">
-    <button class="big-button" mat-raised-button color="primary" (click)="playGame()" *ngIf="!winner">Play Game</button>
+    <div class="settings" *ngIf="!winner">
+      <p>Settings</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Fight Type</mat-label>
+        <mat-select [(value)]="fightType">
+          <mat-option value="person">Person</mat-option>
+          <mat-option value="starship">Starship</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     <button class="big-button" mat-raised-button color="accent" (click)="resetGame()" *ngIf="winner">Play Again</button>
   </div>
 
   <div class="game-fight">
     <div *ngIf="!winner">
-      <app-feature-person></app-feature-person>
+      <app-feature-person *ngIf="fightType === FightType.Person" />
+      <app-feature-starship *ngIf="fightType === FightType.Starship" />
     </div>
 
     <div class="centered-content" *ngIf="!winner">
+      <div class="play-buttons">
+        <button class="big-button" mat-raised-button color="primary" (click)="playGame()" *ngIf="!winner && !playGameDirty">Play Game</button>
+      </div>
       <div *ngIf="countdown > 0 && playGameDirty && !winner">
         <p>Game starts in {{ countdown }}...</p>
       </div>
@@ -19,7 +35,8 @@
     </div>
 
     <div *ngIf="!winner">
-      <app-feature-person></app-feature-person>
+      <app-feature-person *ngIf="fightType === FightType.Person" />
+      <app-feature-starship *ngIf="fightType === FightType.Starship" />
     </div>
 
     <div class="winner-img centered-content" [@winnerAnimation]="winnerState" *ngIf="winner">

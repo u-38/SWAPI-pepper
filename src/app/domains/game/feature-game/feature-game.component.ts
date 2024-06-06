@@ -3,6 +3,10 @@ import {FeaturePersonComponent} from "../../person/feature-person/feature-person
 import {FeatureStarshipComponent} from "../../starship/feature-starship/feature-starship.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import { MatButtonModule} from "@angular/material/button";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatOption, MatSelect} from "@angular/material/select";
+import {FightType} from "../model/fighType.model";
 
 @Component({
   selector: 'app-feature-game',
@@ -13,6 +17,10 @@ import { MatButtonModule} from "@angular/material/button";
     NgIf,
     NgOptimizedImage,
     MatButtonModule,
+    MatSlideToggle,
+    MatFormFieldModule,
+    MatSelect,
+    MatOption,
   ],
   templateUrl: './feature-game.component.html',
   styleUrl: './feature-game.component.css',
@@ -21,9 +29,12 @@ import { MatButtonModule} from "@angular/material/button";
 export class FeatureGameComponent {
   winner: any = null;
   winnerState = 'hidden';
+
   countdown: number = 3;
   interval: any;
   playGameDirty: boolean = false;
+
+  fightType: string = 'person';
 
   playGame() {
     this.startCountdown();
@@ -51,4 +62,6 @@ export class FeatureGameComponent {
     this.winnerState = 'hidden';
     this.countdown = 3;
   }
+
+  protected readonly FightType = FightType;
 }

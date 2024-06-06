@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { Person } from './person.model';
-import { PersonService } from '../data/person.service'; // Ensure this path is correct
-import { MatButtonModule } from '@angular/material/button';
+import {Component, inject, OnInit} from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
+import {Person} from './person.model';
+import {PersonService} from '../data/person.service'; // Ensure this path is correct
+import {MatButtonModule} from '@angular/material/button';
 import {NgStyle} from "@angular/common";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
@@ -33,19 +33,27 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 
 export class FeaturePersonComponent implements OnInit {
   person: Person | null = null;
+  private maxRetries = 10;
+
   private personService = inject(PersonService);
 
-    ngOnInit(): void {
-      this.personService.getTotalPeople().subscribe(totalData => {
-        const totalPeople = totalData.count;
-        const randomId = Math.floor(Math.random() * totalPeople) + 1;
+  ngOnInit(): void {
+    this.personService.getTotalPeople().subscribe(totalData => {
+      const totalPeople = totalData.count;
+      const randomId = Math.floor(Math.random() * totalPeople) + 1;
+      this.loadPerson(  0, totalPeople)
+    });
+  }
 
-        this.personService.getPerson(randomId).subscribe(data => {
-          this.person = data;
-          this.person.image = `https://starwars-visualguide.com/assets/img/characters/${randomId}.jpg`;
-          console.log(this.person);
-        });
-      });
-
+  loadPerson(retries = 0, totalPeople: number): void {
+    const randomId = Math.floor(Math.random() * totalPeople) + 1; // Assuming there are 83 characters
+    this.personService.getPerson(randomId).subscribe(data => {
+      if (data.mass === 'unknown' && retries < this.maxRetries) {
+        this.loadPerson(retries + 1, totalPeople);
+      } else {
+        this.person = data;
+        this.person.image = `https://starwars-visualguide.com/assets/img/characters/${randomId}.jpg`;
+      }
+    });
   }
 }

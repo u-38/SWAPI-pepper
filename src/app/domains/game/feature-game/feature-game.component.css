@@ -1,8 +1,35 @@
 .button {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2rem;
+  margin: 1rem;
+}
+
+.settings {
+  border: 1px solid #000000; /* Green border */
+  border-radius: 2px;
+  text-align: center;
+  flex: 1;
+  padding: 1rem;
+}
+
+.settings p {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.play-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
+}
+
+.big-button {
+  scale: 1.5;
+  margin: 1rem;
 }
 
 .image-container {
@@ -22,8 +49,4 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-
-.big-button {
-  scale: 1.5;
 }
