@@ -1,12 +1,46 @@
 .example-card {
-  margin: 2rem;
+  width: 90%;
   max-width: 400px;
-  display: flex;
-  align-content: center;
-  justify-content: center;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
+.example-card img {
+  width: 100%;
+  height: auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  display: inline-block;
+  transform-origin: 0 0;
+}
+
+.game-fight {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .example-card {
+    width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .example-card {
+    width: 100%;
+  }
 }

@@ -2,7 +2,7 @@
 
 ![Star Wars Battle Constructor](public/img.png)
 
-Welcome to the Star Wars Battle Constructor! This is a fun and interactive test where you'll build an application using the Star Wars API (SWAPI) to select random people or starships and determine who would win based on a common attribute.
+May the Force be with you!
 
 ## Table of Contents
 - [Introduction](#introduction)

@@ -1,12 +1,35 @@
 <div>
-  <button mat-raised-button color="primary" (click)="playGame()">Play Game</button>
-  <div>
-      <app-feature-person />
+  <div class="button">
+    <button class="big-button" mat-raised-button color="primary" (click)="playGame()" *ngIf="!winner">Play Game</button>
+    <button class="big-button" mat-raised-button color="accent" (click)="resetGame()" *ngIf="winner">Play Again</button>
   </div>
 
-  <div *ngIf="starship">
-    <app-feature-starship [starship]=""></app-feature-starship>
+  <div class="game-fight">
+    <div *ngIf="!winner">
+      <app-feature-person></app-feature-person>
+    </div>
+
+    <div class="centered-content" *ngIf="!winner">
+      <div *ngIf="countdown > 0 && playGameDirty && !winner">
+        <p>Game starts in {{ countdown }}...</p>
+      </div>
+    <div class="winner-img" [@winnerAnimation]="winnerState" >
+        <img ngSrc="img.png" height="163" width="203" priority alt="fight image">
+      </div>
+    </div>
+
+    <div *ngIf="!winner">
+      <app-feature-person></app-feature-person>
+    </div>
+
+    <div class="winner-img centered-content" [@winnerAnimation]="winnerState" *ngIf="winner">
+      <h2 *ngIf="winner">{{ winner.name }} wins!</h2>
+      <app-feature-person></app-feature-person>
+    </div>
   </div>
-  <h2 *ngIf="winner">{{ winner.name }} wins!</h2>
-  <button mat-raised-button color="accent" (click)="resetGame()" *ngIf="winner">Play Again</button>
+
+<!--  <div *ngIf="starship">-->
+<!--    <app-feature-starship [starship]="starship"></app-feature-starship>-->
+<!--  </div>-->
+
 </div>

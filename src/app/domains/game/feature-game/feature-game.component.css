@@ -1,0 +1,29 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+}
+
+.image-container {
+  display: inline-block;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+}
+
+.game-fight {
+  display: flex;
+  justify-content: space-around;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.big-button {
+  scale: 1.5;
+}

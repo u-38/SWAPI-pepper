@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {FeaturePersonComponent} from "../../person/feature-person/feature-person.component";
 import {FeatureStarshipComponent} from "../../starship/feature-starship/feature-starship.component";
-import {NgIf} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
+import { MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-feature-game',
@@ -9,22 +10,45 @@ import {NgIf} from "@angular/common";
   imports: [
     FeaturePersonComponent,
     FeatureStarshipComponent,
-    NgIf
+    NgIf,
+    NgOptimizedImage,
+    MatButtonModule,
   ],
   templateUrl: './feature-game.component.html',
   styleUrl: './feature-game.component.css',
 })
 
 export class FeatureGameComponent {
-  public person = '';
-  public starship = true;
-  public winner = {name: 'Darth Vader'};
+  winner: any = null;
+  winnerState = 'hidden';
+  countdown: number = 3;
+  interval: any;
+  playGameDirty: boolean = false;
 
-  public playGame(){
-    console.log('play');
+  playGame() {
+    this.startCountdown();
+    this.playGameDirty = true;
   }
 
-  public resetGame(){
-    console.log('reset');
+  startCountdown() {
+    this.interval = setInterval(() => {
+      this.countdown--;
+      if (this.countdown === 0) {
+        clearInterval(this.interval);
+        this.determineWinner();
+      }
+    }, 1000);
+  }
+
+  determineWinner() {
+    this.winner = { name: 'Luke Skywalker' }; // Example winner
+    this.winnerState = 'visible';
+    this.playGameDirty = false
+  }
+
+  resetGame() {
+    this.winner = null;
+    this.winnerState = 'hidden';
+    this.countdown = 3;
   }
 }

@@ -1,18 +1,15 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ person.name }}</mat-card-title>
-    <mat-card-subtitle>Mass: {{ person.mass }} kg</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a person">
-  <mat-card-content>
-    <p>
-      Here you can add more details about the person. The mass of the person is {{ person.mass }} kg.
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
-</mat-card>
-
+<div class="center">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-subtitle>{{ person?.name }}</mat-card-subtitle>
+      <mat-card-subtitle><strong>Mass: {{ person?.mass }} kg</strong></mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="person?.image" alt="person image">
+    <mat-card-content style="color: white">
+      <p>Birth Year: {{ person?.birth_year }}</p>
+      <p>Gender: {{ person?.gender }}</p>
+      <p>Eye Color: {{ person?.eye_color }}</p>
+      <p>Height: {{ person?.height }} cm</p>
+    </mat-card-content>
+  </mat-card>
+</div>
