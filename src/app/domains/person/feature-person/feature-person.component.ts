@@ -1,10 +1,11 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
-import {Person} from '../../shared/model/person.model';
+import {initialPerson, Person} from '../data/person.model';
 import {PersonService} from '../data/person.service'; // Ensure this path is correct
 import {MatButtonModule} from '@angular/material/button';
 import {NgStyle} from "@angular/common";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {PersonCardComponent} from "../ui-common/person-card/person-card.component";
 
 @Component({
   selector: 'app-feature-person',
@@ -13,6 +14,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     MatCardModule,
     MatButtonModule,
     NgStyle,
+    PersonCardComponent,
   ],
   templateUrl: './feature-person.component.html',
   styleUrls: ['./feature-person.component.css'],
@@ -35,7 +37,7 @@ export class FeaturePersonComponent implements OnInit {
 
   @Output() personLoaded = new EventEmitter<Person>();
 
-  person: Person | null = null;
+  public person : Person = initialPerson;
   private maxRetries = 10;
 
   private personService = inject(PersonService);
@@ -57,7 +59,15 @@ export class FeaturePersonComponent implements OnInit {
         this.person = data;
         this.person.image = `https://starwars-visualguide.com/assets/img/characters/${randomId}.jpg`;
         this.personLoaded.emit(this.person);
+        this.person.massNumber = this.convertToNumber(data.mass);
+        console.log(this.person);
       }
     });
+  }
+
+   convertToNumber(str: string): number {
+    str = str.replace(/,/g, '');
+    str = str.replace(/\.(?=\d{3,}$)/g, '');
+    return parseFloat(str);
   }
 }

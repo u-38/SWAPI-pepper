@@ -43,9 +43,9 @@
                             *ngIf="fightType === FightType.Starship" />
     </div>
 
-    <div class="winner-img centered-content" [@winnerAnimation]="winnerState" *ngIf="winner">
-      <h2 *ngIf="winner">{{ winner.name }} wins!</h2>
-      <app-feature-starship />
+    <div *ngIf="winner && !playGameDirty">
+      <h2>{{ winner.name }} wins!</h2>
+      <app-person-card [person]="winner" *ngIf="winner" />
     </div>
   </div>
 

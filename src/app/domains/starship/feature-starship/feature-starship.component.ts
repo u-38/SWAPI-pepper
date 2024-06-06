@@ -1,8 +1,8 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
-import {Starship} from "../../shared/model/starship.model";
+import {Starship} from "../data/starship.model";
 import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardSubtitle} from "@angular/material/card";
 import {StarshipService} from "../data/starship.service";
-import {Person} from "../../shared/model/person.model";
+import {Person} from "../../person/data/person.model";
 
 @Component({
   selector: 'app-feature-starship',

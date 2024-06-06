@@ -1,15 +1,2 @@
-<div class="center">
-  <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-subtitle>{{ person?.name }}</mat-card-subtitle>
-      <mat-card-subtitle><strong>Mass: {{ person?.mass }} kg</strong></mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image [src]="person?.image" alt="person image">
-    <mat-card-content style="color: white">
-      <p>Birth Year: {{ person?.birth_year }}</p>
-      <p>Gender: {{ person?.gender }}</p>
-      <p>Eye Color: {{ person?.eye_color }}</p>
-      <p>Height: {{ person?.height }} cm</p>
-    </mat-card-content>
-  </mat-card>
-</div>
+<app-person-card [person]="person"/>
+

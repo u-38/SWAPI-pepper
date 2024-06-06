@@ -6,11 +6,12 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
-import {FightType} from "../../shared/model/fight-type.model";
-import {Person} from "../../shared/model/person.model";
+import {FightType} from "../data/fight-type.model";
+import {Person} from "../../person/data/person.model";
 import {GameService} from "../data/game.service";
-import {BattleData} from "../../shared/model/battle-data.model";
-import {Starship} from "../../shared/model/starship.model";
+import {BattleData} from "../data/battle-data.model";
+import {Starship} from "../../starship/data/starship.model";
+import {PersonCardComponent} from "../../person/ui-common/person-card/person-card.component";
 
 @Component({
   selector: 'app-feature-game',
@@ -25,6 +26,7 @@ import {Starship} from "../../shared/model/starship.model";
     MatFormFieldModule,
     MatSelect,
     MatOption,
+    PersonCardComponent,
   ],
   templateUrl: './feature-game.component.html',
   styleUrl: './feature-game.component.css',

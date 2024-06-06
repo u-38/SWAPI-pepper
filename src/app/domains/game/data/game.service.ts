@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {FightType} from "../../shared/model/fight-type.model";
-import {Starship} from "../../shared/model/starship.model";
-import {Person} from "../../shared/model/person.model";
-import {BattleData} from "../../shared/model/battle-data.model";
+import {FightType} from "./fight-type.model";
+import {Starship} from "../../starship/data/starship.model";
+import {Person} from "../../person/data/person.model";
+import {BattleData} from "./battle-data.model";
 
 
 @Injectable({
@@ -11,6 +11,7 @@ import {BattleData} from "../../shared/model/battle-data.model";
 export class GameService {
   determineWinner(battleData: BattleData): Person | Starship | undefined {
     if (battleData.type === FightType.Person) {
+      console.log(battleData.data.reduce((prev, current) => (prev.mass > current.mass ? prev : current)));
       return battleData.data.reduce((prev, current) => (prev.mass > current.mass ? prev : current));
     } else if (battleData.type === FightType.Starship) {
       return battleData.data.reduce((prev, current) => (prev.crewNumber > current.crewNumber ? prev : current));

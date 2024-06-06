@@ -1,5 +1,5 @@
-import { Person } from './person.model';
-import { Starship } from './starship.model';
+import { Person } from '../../person/data/person.model';
+import { Starship } from '../../starship/data/starship.model';
 import {FightType} from "./fight-type.model";
 
 export type BattleData =
