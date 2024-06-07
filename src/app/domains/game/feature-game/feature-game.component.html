@@ -1,6 +1,5 @@
 <div>
   <div class="button">
-    <app-settings [isVisible]="!winnerDetermined"/>
     <button class="big-button" mat-raised-button color="accent" (click)="resetGame()"
             *ngIf="winnerDetermined">Play Again</button>
   </div>
@@ -15,6 +14,8 @@
 
     <div class="centered-content" *ngIf="!winnerDetermined">
       <div class="play-buttons">
+        <app-settings [isVisible]="!winnerDetermined"/>
+
         <button class="big-button" mat-raised-button color="primary" (click)="playGame()"
                 *ngIf="!winnerDetermined && !playGameDirty">Play Game
         </button>
