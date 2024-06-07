@@ -18,19 +18,6 @@ import {PersonCardComponent} from "../ui-common/person-card/person-card.componen
   ],
   templateUrl: './feature-person.component.html',
   styleUrls: ['./feature-person.component.css'],
-  animations: [
-    trigger('winnerAnimation', [
-      state('hidden', style({
-        opacity: 0,
-      })),
-      state('visible', style({
-        opacity: 1,
-      })),
-      transition('hidden => visible', [
-        animate('3s')
-      ]),
-    ])
-  ]
 })
 
 export class FeaturePersonComponent implements OnInit {
@@ -60,12 +47,11 @@ export class FeaturePersonComponent implements OnInit {
         this.person.image = `https://starwars-visualguide.com/assets/img/characters/${randomId}.jpg`;
         this.personLoaded.emit(this.person);
         this.person.massNumber = this.convertToNumber(data.mass);
-        console.log(this.person);
       }
     });
   }
 
-   convertToNumber(str: string): number {
+   private convertToNumber(str: string): number {
     str = str.replace(/,/g, '');
     str = str.replace(/\.(?=\d{3,}$)/g, '');
     return parseFloat(str);

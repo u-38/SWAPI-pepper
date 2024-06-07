@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit, SimpleChanges} from '@angular/core';
 import {FeaturePersonComponent} from "../../person/feature-person/feature-person.component";
 import {FeatureStarshipComponent} from "../../starship/feature-starship/feature-starship.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
@@ -12,6 +12,10 @@ import {GameService} from "../data/game.service";
 import {BattleData} from "../data/battle-data.model";
 import {Starship} from "../../starship/data/starship.model";
 import {PersonCardComponent} from "../../person/ui-common/person-card/person-card.component";
+import {StarshipCardComponent} from "../../starship/ui-common/starship-card/starship-card.component";
+import {FormsModule} from "@angular/forms";
+import {SettingsComponent} from "../ui-common/settings/settings.component";
+import {WinnerComponent} from "../ui-common/winner/winner.component";
 
 @Component({
   selector: 'app-feature-game',
@@ -27,27 +31,38 @@ import {PersonCardComponent} from "../../person/ui-common/person-card/person-car
     MatSelect,
     MatOption,
     PersonCardComponent,
+    StarshipCardComponent,
+    FormsModule,
+    SettingsComponent,
+    WinnerComponent,
   ],
   templateUrl: './feature-game.component.html',
   styleUrl: './feature-game.component.css',
 })
 
-export class FeatureGameComponent {
-  winner: any = null;
-  winnerState = 'hidden';
+export class FeatureGameComponent implements OnInit {
+  winnerDetermined: boolean = false;
+  public readonly FightType = FightType;
 
   countdown: number = 3;
   interval: any;
   playGameDirty: boolean = false;
 
-  fightType: string = 'person';
   battleData: BattleData = {
     type: FightType.Person,
     data: [],
   }
 
-
   private gameService = inject(GameService);
+  public fightType: FightType = this.gameService.getFightType()
+
+  ngOnInit(): void {
+    this.gameService.settings$.subscribe(
+      data => {
+        this.resetGame();
+        this.fightType = data;
+    })
+  }
 
   playGame() {
     this.startCountdown();
@@ -79,16 +94,17 @@ export class FeatureGameComponent {
   }
 
   determineWinner() {
-    this.winner = this.gameService.determineWinner(this.battleData);
-    this.winnerState = 'visible';
-    this.playGameDirty = false
+    console.log(this.battleData);
+    this.battleData.winner = this.gameService.determineWinner(this.battleData);
+    this.playGameDirty = false;
+    this.winnerDetermined = true;
   }
 
   resetGame() {
-    this.winner = null;
-    this.winnerState = 'hidden';
+    this.winnerDetermined = false;
     this.countdown = 3;
+    this.battleData.type = FightType.Person;
+    this.battleData.data = [];
   }
 
-  protected readonly FightType = FightType;
 }

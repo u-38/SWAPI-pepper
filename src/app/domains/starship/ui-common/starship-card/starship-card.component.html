@@ -1,0 +1,15 @@
+<div class="center">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-subtitle>{{ starship.name }}</mat-card-subtitle>
+      <mat-card-subtitle><strong>Crew: {{ starship.crew }}</strong></mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="starship.image" alt="starship image">
+    <mat-card-content style="color: white">
+      <p>Starship class: {{ starship.starship_class }}</p>
+      <p>Model: {{ starship.model }}</p>
+      <p>Cargo Capacity: {{ starship.cargo_capacity }}</p>
+      <p>Length: {{ starship.length }} cm</p>
+    </mat-card-content>
+  </mat-card>
+</div>

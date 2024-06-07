@@ -1,0 +1,5 @@
+<div *ngIf="isVisible">
+  <h2>{{ battleData.winner?.name }} wins!</h2>
+  <app-person-card [person]="battleData.winner ?? initialPerson" *ngIf="battleData.type === FightType.Person"></app-person-card>
+  <app-starship-card [starship]="battleData.winner ?? initialStarship" *ngIf="battleData.type === FightType.Starship"></app-starship-card>
+</div>

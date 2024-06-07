@@ -1,56 +1,41 @@
 <div>
-
-
-
   <div class="button">
-    <div class="settings" *ngIf="!winner">
-      <p>Settings</p>
-      <mat-form-field appearance="fill">
-        <mat-label>Fight Type</mat-label>
-        <mat-select [(value)]="fightType">
-          <mat-option value="person">Person</mat-option>
-          <mat-option value="starship">Starship</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <button class="big-button" mat-raised-button color="accent" (click)="resetGame()" *ngIf="winner">Play Again</button>
+    <app-settings [isVisible]="!winnerDetermined"/>
+    <button class="big-button" mat-raised-button color="accent" (click)="resetGame()"
+            *ngIf="winnerDetermined">Play Again</button>
   </div>
 
   <div class="game-fight">
-    <div *ngIf="!winner">
+    <div *ngIf="!winnerDetermined">
       <app-feature-person (personLoaded)="onPersonLoaded($event)"
-                          *ngIf="fightType === FightType.Person" />
+                          *ngIf="fightType === FightType.Person"/>
       <app-feature-starship (starshipLoaded)=onStarshipLoaded($event)
-                            *ngIf="fightType === FightType.Starship" />
+                            *ngIf="fightType === FightType.Starship"/>
     </div>
 
-    <div class="centered-content" *ngIf="!winner">
+    <div class="centered-content" *ngIf="!winnerDetermined">
       <div class="play-buttons">
-        <button class="big-button" mat-raised-button color="primary" (click)="playGame()" *ngIf="!winner && !playGameDirty">Play Game</button>
+        <button class="big-button" mat-raised-button color="primary" (click)="playGame()"
+                *ngIf="!winnerDetermined && !playGameDirty">Play Game
+        </button>
       </div>
-      <div *ngIf="countdown > 0 && playGameDirty && !winner">
+      <div *ngIf="countdown > 0 && playGameDirty && !winnerDetermined">
         <p>Game starts in {{ countdown }}...</p>
       </div>
-    <div class="winner-img" [@winnerAnimation]="winnerState" >
+      <div class="winner-img">
         <img ngSrc="img.png" height="163" width="203" priority alt="fight image">
       </div>
     </div>
 
-    <div *ngIf="!winner">
+    <div *ngIf="!winnerDetermined">
       <app-feature-person (personLoaded)="onPersonLoaded($event)"
-                          *ngIf="fightType === FightType.Person" />
+                          *ngIf="fightType === FightType.Person"/>
       <app-feature-starship (starshipLoaded)=onStarshipLoaded($event)
-                            *ngIf="fightType === FightType.Starship" />
+                            *ngIf="fightType === FightType.Starship"/>
     </div>
 
-    <div *ngIf="winner && !playGameDirty">
-      <h2>{{ winner.name }} wins!</h2>
-      <app-person-card [person]="winner" *ngIf="winner" />
-    </div>
+    <app-winner [isVisible]="winnerDetermined && !playGameDirty"
+                [battleData] = "battleData" />
   </div>
-
-<!--  <div *ngIf="starship">-->
-<!--    <app-feature-starship [starship]="starship"></app-feature-starship>-->
-<!--  </div>-->
 
 </div>

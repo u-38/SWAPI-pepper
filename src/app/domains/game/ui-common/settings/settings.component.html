@@ -1,0 +1,10 @@
+<div class="settings" *ngIf="isVisible">
+  <p>Settings</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Fight Type</mat-label>
+    <mat-select [(ngModel)]="fightType" (selectionChange)="onFightTypeChange($event.value)">
+      <mat-option [value]="FightType.Person">Person</mat-option>
+      <mat-option [value]="FightType.Starship">Starship</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

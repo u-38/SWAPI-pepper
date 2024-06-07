@@ -1,19 +1,21 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
-import {Starship} from "../data/starship.model";
+import {initialStarship, Starship} from "../data/starship.model";
 import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardSubtitle} from "@angular/material/card";
 import {StarshipService} from "../data/starship.service";
 import {Person} from "../../person/data/person.model";
+import {StarshipCardComponent} from "../ui-common/starship-card/starship-card.component";
 
 @Component({
   selector: 'app-feature-starship',
   standalone: true,
-    imports: [
-        MatCard,
-        MatCardContent,
-        MatCardHeader,
-        MatCardImage,
-        MatCardSubtitle
-    ],
+  imports: [
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardImage,
+    MatCardSubtitle,
+    StarshipCardComponent
+  ],
   templateUrl: './feature-starship.component.html',
   styleUrl: './feature-starship.component.css'
 })
@@ -21,7 +23,7 @@ import {Person} from "../../person/data/person.model";
 export class FeatureStarshipComponent implements OnInit {
   @Output() starshipLoaded = new EventEmitter<Starship>();
 
-  starship: Starship | null = null;
+  starship: Starship = initialStarship;
   private maxRetries = 10;
 
   private starshipService = inject(StarshipService);
@@ -34,35 +36,46 @@ export class FeatureStarshipComponent implements OnInit {
     });
   }
 
-  loadStarship(retries = 0, totalStarships: number): void {
+  loadStarship(retries: number = 0, totalStarships: number): void {
     const randomId = Math.floor(Math.random() * totalStarships) + 1;
+
     this.starshipService.getStarship(randomId).subscribe(
       data => {
-        if (data.crew === 'unknown' && retries < this.maxRetries) {
+        const { crew } = data;
+
+        if (crew === 'unknown' && retries < this.maxRetries) {
           this.loadStarship(retries + 1, totalStarships);
         } else {
           const imageUrl = `https://starwars-visualguide.com/assets/img/starships/${randomId}.jpg`;
-          this.checkImageAvailability(imageUrl).then(isAvailable => {
-            this.starship = data;
-            this.starship.crewNumber = Number(data.crew.replace(/,/g, ''));
 
-            if (isAvailable) {
-              this.starship = data;
-              this.starship.image = imageUrl;
-            } else {
-              this.starship = data;
-              this.starship.image = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
-            }
+          this.checkImageAvailability(imageUrl).then(isAvailable => {
+            this.starship = {
+              ...data,
+              crewNumber: this.parseCrewNumber(crew),
+              image: isAvailable ? imageUrl : 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
+            };
+
+            this.starshipLoaded.emit(this.starship);
           });
         }
       },
       error => {
         console.error('Error loading starship', error);
+
         if (retries < this.maxRetries) {
           this.loadStarship(retries + 1, totalStarships);
         }
       }
     );
+  }
+
+  private parseCrewNumber(crew: string): number {
+    if (crew.includes('-')) {
+      const parts = crew.split('-').map(part => Number(part.replace(/,/g, '').trim()));
+      return Math.max(...parts);
+    } else {
+      return Number(crew.replace(/,/g, '').trim());
+    }
   }
 
   private checkImageAvailability(url: string): Promise<boolean> {

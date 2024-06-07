@@ -20,3 +20,26 @@ export interface Starship {
   image: string;
   crewNumber: number;
 }
+
+export const initialStarship: Starship = {
+  name: "",
+  model: "",
+  starship_class: "",
+  manufacturer: "",
+  cost_in_credits: "",
+  length: "",
+  crew: "",
+  passengers: "",
+  max_atmosphering_speed: "",
+  hyperdrive_rating: "",
+  MGLT: "",
+  cargo_capacity: "",
+  consumables: "",
+  films: [],
+  pilots: [],
+  url: "",
+  created: "",
+  edited: "",
+  image: "",
+  crewNumber: 0,
+};
