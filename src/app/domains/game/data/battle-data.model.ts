@@ -1,10 +1,9 @@
-import { Person } from '../../person/data/person.model';
-import { Starship } from '../../starship/data/starship.model';
 import {FightType} from "./fight-type.model";
+import {Player} from "../../player/data/player";
 
 export type BattleData =
-  | { type: FightType.Person, data: Person[], winner?: Person }
-  | { type: FightType.Starship, data: Starship[], winner?: Starship };
+  | { type: FightType.Person, data: Player[], winner?: Player }
+  | { type: FightType.Starship, data: Player[], winner?: Player };
 
 export const initialBattleDataPerson: BattleData = {
   type: FightType.Person,

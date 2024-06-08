@@ -7,16 +7,16 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {FightType} from "../data/fight-type.model";
-import {Person} from "../../person/data/person.model";
 import {GameService} from "../data/game.service";
 import {BattleData} from "../data/battle-data.model";
-import {Starship} from "../../starship/data/starship.model";
 import {PersonCardComponent} from "../../person/ui-common/person-card/person-card.component";
 import {StarshipCardComponent} from "../../starship/ui-common/starship-card/starship-card.component";
 import {FormsModule} from "@angular/forms";
 import {SettingsComponent} from "../../shared/settings/settings.component";
 import {WinnerComponent} from "../ui-common/winner/winner.component";
 import {SettingsService} from "../../shared/settings/data/settings.service";
+import {FeaturePlayerComponent} from "../../player/feature-player/feature-player.component";
+import {Player} from "../../player/data/player";
 
 @Component({
   selector: 'app-feature-game',
@@ -36,6 +36,7 @@ import {SettingsService} from "../../shared/settings/data/settings.service";
     FormsModule,
     SettingsComponent,
     WinnerComponent,
+    FeaturePlayerComponent,
   ],
   templateUrl: './feature-game.component.html',
   styleUrl: './feature-game.component.css',
@@ -72,17 +73,10 @@ export class FeatureGameComponent implements OnInit {
     this.playGameDirty = true;
   }
 
-  onPersonLoaded(person: Person): void {
+  onPlayerLoaded(player: Player): void {
     this.battleData.type = FightType.Person;
     if (this.battleData && this.battleData.type === FightType.Person) {
-      this.battleData.data.push(person);
-    }
-  }
-
-  onStarshipLoaded(starship: Starship): void {
-    this.battleData.type = FightType.Starship;
-    if (this.battleData && this.battleData.type === FightType.Starship) {
-      this.battleData.data.push(starship);
+      this.battleData.data.push(player);
     }
   }
 

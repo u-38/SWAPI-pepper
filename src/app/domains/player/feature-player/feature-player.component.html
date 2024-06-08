@@ -1,0 +1,10 @@
+<p>Player: {{player.name}}, Score: {{player.score}}</p>
+<app-feature-person
+  (personLoaded)="onPersonLoaded($event)"
+  *ngIf="fightType === FightType.Person"
+></app-feature-person>
+
+<app-feature-starship
+  (starshipLoaded)="onStarshipLoaded($event)"
+  *ngIf="fightType === FightType.Starship"
+></app-feature-starship>

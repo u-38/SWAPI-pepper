@@ -1,5 +1,4 @@
 <div>
-  <!-- Play Again Button -->
   <div class="button">
     <button
       class="big-button"
@@ -14,14 +13,7 @@
 
   <div class="game-fight">
     <ng-container *ngIf="!winnerDetermined">
-      <app-feature-person
-        (personLoaded)="onPersonLoaded($event)"
-        *ngIf="fightType === FightType.Person"
-      ></app-feature-person>
-      <app-feature-starship
-        (starshipLoaded)="onStarshipLoaded($event)"
-        *ngIf="fightType === FightType.Starship"
-      ></app-feature-starship>
+      <app-feature-player (playerLoaded)="onPlayerLoaded($event)" />
     </ng-container>
 
     <div class="centered-content" *ngIf="!winnerDetermined">
@@ -47,14 +39,7 @@
     </div>
 
     <ng-container *ngIf="!winnerDetermined">
-      <app-feature-person
-        (personLoaded)="onPersonLoaded($event)"
-        *ngIf="fightType === FightType.Person"
-      ></app-feature-person>
-      <app-feature-starship
-        (starshipLoaded)="onStarshipLoaded($event)"
-        *ngIf="fightType === FightType.Starship"
-      ></app-feature-starship>
+      <app-feature-player (playerLoaded)="onPlayerLoaded($event)" />
     </ng-container>
 
     <app-winner

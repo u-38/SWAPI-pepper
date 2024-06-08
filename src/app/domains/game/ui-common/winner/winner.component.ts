@@ -6,6 +6,7 @@ import {PersonCardComponent} from "../../../person/ui-common/person-card/person-
 import {StarshipCardComponent} from "../../../starship/ui-common/starship-card/starship-card.component";
 import {NgIf} from "@angular/common";
 import {BattleData, initialBattleDataPerson} from "../../data/battle-data.model";
+import {initialPlayer} from "../../../player/data/player";
 
 @Component({
   selector: 'app-winner',
@@ -22,6 +23,7 @@ export class WinnerComponent {
     @Input() isVisible = true;
     @Input() battleData: BattleData = initialBattleDataPerson;
     protected readonly FightType = FightType;
-  protected readonly initialStarship = initialStarship;
   protected readonly initialPerson = initialPerson;
+  protected readonly initialPlayer = initialPlayer;
+  protected readonly initialStarship = initialStarship;
 }
