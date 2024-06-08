@@ -4,7 +4,6 @@ import {initialPerson, Person} from '../data/person.model';
 import {PersonService} from '../data/person.service'; // Ensure this path is correct
 import {MatButtonModule} from '@angular/material/button';
 import {NgStyle} from "@angular/common";
-import {animate, state, style, transition, trigger} from "@angular/animations";
 import {PersonCardComponent} from "../ui-common/person-card/person-card.component";
 
 @Component({
@@ -32,7 +31,6 @@ export class FeaturePersonComponent implements OnInit {
   ngOnInit(): void {
     this.personService.getTotalPeople().subscribe(totalData => {
       const totalPeople = totalData.count;
-      const randomId = Math.floor(Math.random() * totalPeople) + 1;
       this.loadPerson(  0, totalPeople)
     });
   }

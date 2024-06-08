@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, SimpleChanges} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FeaturePersonComponent} from "../../person/feature-person/feature-person.component";
 import {FeatureStarshipComponent} from "../../starship/feature-starship/feature-starship.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
@@ -41,12 +41,12 @@ import {WinnerComponent} from "../ui-common/winner/winner.component";
 })
 
 export class FeatureGameComponent implements OnInit {
-  winnerDetermined: boolean = false;
+  winnerDetermined = false;
   public readonly FightType = FightType;
 
-  countdown: number = 3;
-  interval: any;
-  playGameDirty: boolean = false;
+  countdown = 3;
+  interval: ReturnType<typeof setInterval> | undefined;
+  playGameDirty = false;
 
   battleData: BattleData = {
     type: FightType.Person,

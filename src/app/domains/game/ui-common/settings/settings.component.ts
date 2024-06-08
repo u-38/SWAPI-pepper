@@ -22,7 +22,7 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent {
-    @Input() isVisible: boolean = true;
+    @Input() isVisible = true;
 
   fightType : FightType = FightType.Person;
   constructor(private gameService: GameService) {

@@ -1,26 +1,44 @@
 <div>
+  <!-- Play Again Button -->
   <div class="button">
-    <button class="big-button" mat-raised-button color="accent" (click)="resetGame()"
-            *ngIf="winnerDetermined">Play Again</button>
+    <button
+      class="big-button"
+      mat-raised-button
+      color="accent"
+      (click)="resetGame()"
+      *ngIf="winnerDetermined"
+    >
+      Play Again
+    </button>
   </div>
 
   <div class="game-fight">
-    <div *ngIf="!winnerDetermined">
-      <app-feature-person (personLoaded)="onPersonLoaded($event)"
-                          *ngIf="fightType === FightType.Person"/>
-      <app-feature-starship (starshipLoaded)=onStarshipLoaded($event)
-                            *ngIf="fightType === FightType.Starship"/>
-    </div>
+    <ng-container *ngIf="!winnerDetermined">
+      <app-feature-person
+        (personLoaded)="onPersonLoaded($event)"
+        *ngIf="fightType === FightType.Person"
+      ></app-feature-person>
+      <app-feature-starship
+        (starshipLoaded)="onStarshipLoaded($event)"
+        *ngIf="fightType === FightType.Starship"
+      ></app-feature-starship>
+    </ng-container>
 
     <div class="centered-content" *ngIf="!winnerDetermined">
       <div class="play-buttons">
-        <app-settings [isVisible]="!winnerDetermined"/>
+        <app-settings [isVisible]="!winnerDetermined"></app-settings>
 
-        <button class="big-button" mat-raised-button color="primary" (click)="playGame()"
-                *ngIf="!winnerDetermined && !playGameDirty">Play Game
+        <button
+          class="big-button"
+          mat-raised-button
+          color="primary"
+          (click)="playGame()"
+          *ngIf="!playGameDirty"
+        >
+          Play Game
         </button>
       </div>
-      <div *ngIf="countdown > 0 && playGameDirty && !winnerDetermined">
+      <div *ngIf="countdown > 0 && playGameDirty">
         <p>Game starts in {{ countdown }}...</p>
       </div>
       <div class="winner-img">
@@ -28,15 +46,20 @@
       </div>
     </div>
 
-    <div *ngIf="!winnerDetermined">
-      <app-feature-person (personLoaded)="onPersonLoaded($event)"
-                          *ngIf="fightType === FightType.Person"/>
-      <app-feature-starship (starshipLoaded)=onStarshipLoaded($event)
-                            *ngIf="fightType === FightType.Starship"/>
-    </div>
+    <ng-container *ngIf="!winnerDetermined">
+      <app-feature-person
+        (personLoaded)="onPersonLoaded($event)"
+        *ngIf="fightType === FightType.Person"
+      ></app-feature-person>
+      <app-feature-starship
+        (starshipLoaded)="onStarshipLoaded($event)"
+        *ngIf="fightType === FightType.Starship"
+      ></app-feature-starship>
+    </ng-container>
 
-    <app-winner [isVisible]="winnerDetermined && !playGameDirty"
-                [battleData] = "battleData" />
+    <app-winner
+      [isVisible]="winnerDetermined && !playGameDirty"
+      [battleData]="battleData"
+    ></app-winner>
   </div>
-
 </div>

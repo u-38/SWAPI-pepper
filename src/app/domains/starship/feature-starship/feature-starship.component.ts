@@ -2,7 +2,6 @@ import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {initialStarship, Starship} from "../data/starship.model";
 import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardSubtitle} from "@angular/material/card";
 import {StarshipService} from "../data/starship.service";
-import {Person} from "../../person/data/person.model";
 import {StarshipCardComponent} from "../ui-common/starship-card/starship-card.component";
 
 @Component({
@@ -31,12 +30,11 @@ export class FeatureStarshipComponent implements OnInit {
   ngOnInit(): void {
     this.starshipService.getTotalStarship().subscribe(totalData => {
       const totalStarships = totalData.count;
-      const randomId = Math.floor(Math.random() * totalStarships) + 1;
       this.loadStarship(  0, totalStarships)
     });
   }
 
-  loadStarship(retries: number = 0, totalStarships: number): void {
+  loadStarship(retries = 0, totalStarships: number): void {
     const randomId = Math.floor(Math.random() * totalStarships) + 1;
 
     this.starshipService.getStarship(randomId).subscribe(
