@@ -14,8 +14,9 @@ import {Starship} from "../../starship/data/starship.model";
 import {PersonCardComponent} from "../../person/ui-common/person-card/person-card.component";
 import {StarshipCardComponent} from "../../starship/ui-common/starship-card/starship-card.component";
 import {FormsModule} from "@angular/forms";
-import {SettingsComponent} from "../ui-common/settings/settings.component";
+import {SettingsComponent} from "../../shared/settings/settings.component";
 import {WinnerComponent} from "../ui-common/winner/winner.component";
+import {SettingsService} from "../../shared/settings/data/settings.service";
 
 @Component({
   selector: 'app-feature-game',
@@ -54,10 +55,12 @@ export class FeatureGameComponent implements OnInit {
   }
 
   private gameService = inject(GameService);
-  public fightType: FightType = this.gameService.getFightType()
+  private settingsService = inject(SettingsService);
+
+  public fightType: FightType = this.settingsService.getFightType()
 
   ngOnInit(): void {
-    this.gameService.settings$.subscribe(
+    this.settingsService.settings$.subscribe(
       data => {
         this.resetGame();
         this.fightType = data;

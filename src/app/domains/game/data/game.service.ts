@@ -22,11 +22,5 @@ export class GameService {
     return undefined;
   }
 
-  handleFightTypeChange(newFightType: FightType): void {
-    this.settings$.next(newFightType);
-  }
 
-  getFightType(): FightType {
-    return this.settings$.getValue();
-  }
 }
