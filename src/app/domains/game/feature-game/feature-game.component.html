@@ -37,7 +37,7 @@
 
     <ng-container *ngIf="!winnerDetermined">
       <ng-container *ngFor="let player of players">
-        <app-feature-player (playerLoaded)="onPlayerLoaded($event)" [player]="player"></app-feature-player>
+        <app-feature-player (playerLoaded)="onPlayerLoaded($event)" [player]="player" class="margin"></app-feature-player>
       </ng-container>
     </ng-container>
 

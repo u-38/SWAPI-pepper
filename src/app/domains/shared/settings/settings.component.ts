@@ -59,7 +59,6 @@ export class SettingsComponent implements OnInit{
     this.settingsService.players$.subscribe(
       data => {
         this.players = data;
-        console.log(this.players);
       }
     )
 

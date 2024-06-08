@@ -1,5 +1,5 @@
 # Star Wars Battle Constructor 
-
+![Star Wars Battle Constructor](public/img_1.png)
 May the Force be with you!
 
 ## Installation
