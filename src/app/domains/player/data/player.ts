@@ -15,3 +15,17 @@ export const initialPlayer = {
   starship: initialStarship,
   person: initialPerson,
 }
+
+export const initialPlayer1 = {
+  name: 'Duke Doodle',
+  score: 0,
+  starship: initialStarship,
+  person: initialPerson,
+}
+
+export const initialPlayer2 = {
+  name: 'Baron Von Giggles',
+  score: 0,
+  starship: initialStarship,
+  person: initialPerson,
+}

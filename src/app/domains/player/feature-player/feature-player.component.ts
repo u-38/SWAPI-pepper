@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {initialPlayer, Player} from "../data/player";
 import {Person} from "../../person/data/person.model";
 import {Starship} from "../../starship/data/starship.model";
@@ -21,24 +21,28 @@ import {FeatureStarshipComponent} from "../../starship/feature-starship/feature-
 })
 export class FeaturePlayerComponent implements OnInit {
   @Output() playerLoaded = new EventEmitter<Player>();
-  player = initialPlayer;
-  private settingsService = inject(SettingsService)
+  @Input() player: Player = initialPlayer
+
   fightType: FightType = FightType.Person;
+  private settingsService = inject(SettingsService)
 
   ngOnInit(): void {
     this.settingsService.settings$.subscribe( data => {
       this.fightType = data;
     })
   }
+
   onPersonLoaded(person: Person): void {
     if (this.fightType === FightType.Person) {
       this.player.person = person;
+      this.playerLoaded.emit(this.player);
     }
   }
 
   onStarshipLoaded(starship: Starship): void {
     if (this.fightType === FightType.Starship) {
       this.player.starship = starship;
+      this.playerLoaded.emit(this.player);
     }
   }
 

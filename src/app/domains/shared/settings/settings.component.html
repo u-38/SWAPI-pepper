@@ -7,4 +7,31 @@
       <mat-option [value]="FightType.Starship">Starship</mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-card class="margin">
+    <mat-card-title class="font-color margin">Add Player</mat-card-title>
+    <form [formGroup]="playerForm" (ngSubmit)="addPlayer()">
+      <mat-form-field appearance="fill" style="padding: 1rem">
+        <mat-label>Player Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="playerForm.get('name')?.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="playerForm.invalid">Add</button>
+    </form>
+  </mat-card>
+
+  <mat-card class="margin">
+    <mat-card-title class="font-color margin">Players List</mat-card-title>
+    <mat-list>
+      <mat-list-item *ngFor="let player of players; let i = index">
+        {{ player.name }}
+        <button mat-icon-button color="warn" (click)="deletePlayer(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
 </div>
+

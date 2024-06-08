@@ -10,6 +10,7 @@ import {Player} from "../../player/data/player";
 export class GameService {
 
   determineWinner(battleData: BattleData): Player | undefined {
+    console.log(battleData, "---determineWinner--");
     if (battleData.type === FightType.Person) {
       return battleData.data.reduce((prev, current) => (prev.person.massNumber > current.person.massNumber ? prev : current));
     } else if (battleData.type === FightType.Starship) {

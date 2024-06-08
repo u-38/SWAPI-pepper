@@ -12,13 +12,10 @@
   </div>
 
   <div class="game-fight">
-    <ng-container *ngIf="!winnerDetermined">
-      <app-feature-player (playerLoaded)="onPlayerLoaded($event)" />
-    </ng-container>
-
     <div class="centered-content" *ngIf="!winnerDetermined">
       <div class="play-buttons">
-        <app-settings [isVisible]="!winnerDetermined"></app-settings>
+        <app-settings [isVisible]="!winnerDetermined"
+                      [battleData]="battleData"></app-settings>
 
         <button
           class="big-button"
@@ -39,11 +36,13 @@
     </div>
 
     <ng-container *ngIf="!winnerDetermined">
-      <app-feature-player (playerLoaded)="onPlayerLoaded($event)" />
+      <ng-container *ngFor="let player of players">
+        <app-feature-player (playerLoaded)="onPlayerLoaded($event)" [player]="player"></app-feature-player>
+      </ng-container>
     </ng-container>
 
     <app-winner
-      [isVisible]="winnerDetermined && !playGameDirty"
+      *ngIf="winnerDetermined && !playGameDirty"
       [battleData]="battleData"
     ></app-winner>
   </div>

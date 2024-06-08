@@ -10,9 +10,3 @@ export const initialBattleDataPerson: BattleData = {
   data: [],
   winner: undefined,
 };
-
-export const initialBattleDataStarship: BattleData = {
-  type: FightType.Starship,
-  data: [],
-  winner: undefined,
-};

@@ -1,4 +1,5 @@
 <p>Player: {{player.name}}, Score: {{player.score}}</p>
+
 <app-feature-person
   (personLoaded)="onPersonLoaded($event)"
   *ngIf="fightType === FightType.Person"

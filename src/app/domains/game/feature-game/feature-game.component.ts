@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FeaturePersonComponent} from "../../person/feature-person/feature-person.component";
 import {FeatureStarshipComponent} from "../../starship/feature-starship/feature-starship.component";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -37,6 +37,7 @@ import {Player} from "../../player/data/player";
     SettingsComponent,
     WinnerComponent,
     FeaturePlayerComponent,
+    NgForOf,
   ],
   templateUrl: './feature-game.component.html',
   styleUrl: './feature-game.component.css',
@@ -49,6 +50,7 @@ export class FeatureGameComponent implements OnInit {
   countdown = 3;
   interval: ReturnType<typeof setInterval> | undefined;
   playGameDirty = false;
+  players: Player[] = [];
 
   battleData: BattleData = {
     type: FightType.Person,
@@ -63,9 +65,15 @@ export class FeatureGameComponent implements OnInit {
   ngOnInit(): void {
     this.settingsService.settings$.subscribe(
       data => {
-        this.resetGame();
         this.fightType = data;
+        this.resetGame();
     })
+
+    this.settingsService.players$.subscribe(
+      data => {
+        this.players = data;
+        console.log(this.players);
+      })
   }
 
   playGame() {
@@ -74,8 +82,10 @@ export class FeatureGameComponent implements OnInit {
   }
 
   onPlayerLoaded(player: Player): void {
-    this.battleData.type = FightType.Person;
-    if (this.battleData && this.battleData.type === FightType.Person) {
+    if (this.fightType === FightType.Person) {
+      this.battleData.data.push(player);
+    }
+    if (this.fightType === FightType.Starship) {
       this.battleData.data.push(player);
     }
   }
@@ -93,15 +103,27 @@ export class FeatureGameComponent implements OnInit {
   determineWinner() {
     console.log(this.battleData);
     this.battleData.winner = this.gameService.determineWinner(this.battleData);
+    this.addPoint(this.battleData.winner);
     this.playGameDirty = false;
     this.winnerDetermined = true;
+  }
+
+  addPoint(winner: Player | undefined) {
+    const championPlayer = this.players.find(player => player.name === winner?.name);
+    if (championPlayer && winner !== undefined) {
+      winner.score += 1;
+      this.settingsService.players$.next([...this.players]);
+    }
   }
 
   resetGame() {
     this.winnerDetermined = false;
     this.countdown = 3;
-    this.battleData.type = FightType.Person;
-    this.battleData.data = [];
+    this.battleData = {
+      type: this.fightType,
+      data: [],
+      winner: undefined
+    };
   }
 
 }
