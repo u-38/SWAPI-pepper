@@ -1,8 +1,9 @@
-import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {Component, DestroyRef, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {initialStarship, Starship} from "../data/starship.model";
 import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardSubtitle} from "@angular/material/card";
 import {StarshipService} from "../data/starship.service";
 import {StarshipCardComponent} from "../ui-common/starship-card/starship-card.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-feature-starship',
@@ -26,9 +27,11 @@ export class FeatureStarshipComponent implements OnInit {
   private maxRetries = 10;
 
   private starshipService = inject(StarshipService);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.starshipService.getTotalStarship().subscribe(totalData => {
+    this.starshipService.getTotalStarship().pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(totalData => {
       const totalStarships = totalData.count;
       this.loadStarship(  0, totalStarships)
     });
@@ -37,7 +40,8 @@ export class FeatureStarshipComponent implements OnInit {
   loadStarship(retries = 0, totalStarships: number): void {
     const randomId = Math.floor(Math.random() * totalStarships) + 1;
 
-    this.starshipService.getStarship(randomId).subscribe(
+    this.starshipService.getStarship(randomId).pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
       data => {
         const { crew } = data;
 

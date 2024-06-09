@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DestroyRef, Input, OnInit} from '@angular/core';
 import {FightType} from "../../game/data/fight-type.model";
 import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/core";
@@ -9,12 +9,13 @@ import {SettingsService} from "./data/settings.service";
 import {BattleData, initialBattleDataPerson} from "../../game/data/battle-data.model";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInput, MatInputModule} from "@angular/material/input";
-import {initialPlayer, initialPlayer1, initialPlayer2, Player} from "../../player/data/player";
+import {initialPlayer1, initialPlayer2, Player} from "../../player/data/player";
 import {initialStarship} from "../../starship/data/starship.model";
 import {initialPerson} from "../../person/data/person.model";
 import {MatCard, MatCardTitle} from "@angular/material/card";
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatIcon, MatIconModule} from "@angular/material/icon";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-settings',
@@ -49,6 +50,7 @@ export class SettingsComponent implements OnInit{
   players: Player[] = [initialPlayer1, initialPlayer2];
 
   constructor(private settingsService: SettingsService,
+              private destroyRef: DestroyRef,
               private fb: FormBuilder) {
     this.playerForm = this.fb.group({
       name: ['', Validators.required]
@@ -56,13 +58,15 @@ export class SettingsComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.settingsService.players$.subscribe(
+    this.settingsService.players$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
       data => {
         this.players = data;
       }
     )
 
-    this.settingsService.settings$.subscribe( data => {
+    this.settingsService.settings$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe( data => {
       this.fightType = data;
     })
   }

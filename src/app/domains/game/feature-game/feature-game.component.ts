@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {FeaturePersonComponent} from "../../person/feature-person/feature-person.component";
 import {FeatureStarshipComponent} from "../../starship/feature-starship/feature-starship.component";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
@@ -17,6 +17,7 @@ import {WinnerComponent} from "../ui-common/winner/winner.component";
 import {SettingsService} from "../../shared/settings/data/settings.service";
 import {FeaturePlayerComponent} from "../../player/feature-player/feature-player.component";
 import {Player} from "../../player/data/player";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-feature-game',
@@ -59,20 +60,22 @@ export class FeatureGameComponent implements OnInit {
 
   private gameService = inject(GameService);
   private settingsService = inject(SettingsService);
+  private destroyRef = inject(DestroyRef)
 
   public fightType: FightType = this.settingsService.getFightType()
 
   ngOnInit(): void {
-    this.settingsService.settings$.subscribe(
+    this.settingsService.settings$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
       data => {
         this.fightType = data;
         this.resetGame();
     })
 
-    this.settingsService.players$.subscribe(
+    this.settingsService.players$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
       data => {
         this.players = data;
-        console.log(this.players);
       })
   }
 
@@ -101,7 +104,6 @@ export class FeatureGameComponent implements OnInit {
   }
 
   determineWinner() {
-    console.log(this.battleData);
     this.battleData.winner = this.gameService.determineWinner(this.battleData);
     this.addPoint(this.battleData.winner);
     this.playGameDirty = false;

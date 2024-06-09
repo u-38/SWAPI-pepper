@@ -10,6 +10,7 @@
 
   <mat-card class="margin">
     <mat-card-title class="font-color margin">Add Player</mat-card-title>
+
     <form [formGroup]="playerForm" (ngSubmit)="addPlayer()">
       <mat-form-field appearance="fill" style="padding: 1rem">
         <mat-label>Player Name</mat-label>
@@ -18,7 +19,7 @@
           Name is required
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="playerForm.invalid">Add</button>
+      <button mat-raised-button class="button-add" color="primary" type="submit" [disabled]="playerForm.invalid">Add</button>
     </form>
   </mat-card>
 

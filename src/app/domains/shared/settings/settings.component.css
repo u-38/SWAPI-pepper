@@ -5,3 +5,8 @@
 .margin {
   margin: 1rem;
 }
+
+.button-add {
+  top: -0.5rem;
+  margin: 1rem;
+}

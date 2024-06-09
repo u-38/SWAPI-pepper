@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
+import {Component, DestroyRef, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {initialPlayer, Player} from "../data/player";
 import {Person} from "../../person/data/person.model";
 import {Starship} from "../../starship/data/starship.model";
@@ -7,6 +7,7 @@ import {FeaturePersonComponent} from "../../person/feature-person/feature-person
 import {NgIf} from "@angular/common";
 import {SettingsService} from "../../shared/settings/data/settings.service";
 import {FeatureStarshipComponent} from "../../starship/feature-starship/feature-starship.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-feature-player',
@@ -24,10 +25,12 @@ export class FeaturePlayerComponent implements OnInit {
   @Input() player: Player = initialPlayer
 
   fightType: FightType = FightType.Person;
-  private settingsService = inject(SettingsService)
+  private settingsService = inject(SettingsService);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.settingsService.settings$.subscribe( data => {
+    this.settingsService.settings$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe( data => {
       this.fightType = data;
     })
   }

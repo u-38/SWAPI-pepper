@@ -1,10 +1,11 @@
-import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {Component, DestroyRef, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {initialPerson, Person} from '../data/person.model';
 import {PersonService} from '../data/person.service'; // Ensure this path is correct
 import {MatButtonModule} from '@angular/material/button';
 import {NgStyle} from "@angular/common";
 import {PersonCardComponent} from "../ui-common/person-card/person-card.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-feature-person',
@@ -27,9 +28,11 @@ export class FeaturePersonComponent implements OnInit {
   private maxRetries = 10;
 
   private personService = inject(PersonService);
+  private destroyRef = inject(DestroyRef)
 
   ngOnInit(): void {
-    this.personService.getTotalPeople().subscribe(totalData => {
+    this.personService.getTotalPeople().pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(totalData => {
       const totalPeople = totalData.count;
       this.loadPerson(  0, totalPeople)
     });
@@ -37,7 +40,8 @@ export class FeaturePersonComponent implements OnInit {
 
   loadPerson(retries = 0, totalPeople: number): void {
     const randomId = Math.floor(Math.random() * totalPeople) + 1; // Assuming there are 83 characters
-    this.personService.getPerson(randomId).subscribe(data => {
+    this.personService.getPerson(randomId).pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
       if (data.mass === 'unknown' && retries < this.maxRetries) {
         this.loadPerson(retries + 1, totalPeople);
       } else {
