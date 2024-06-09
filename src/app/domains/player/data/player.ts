@@ -1,7 +1,7 @@
 import {initialStarship, Starship} from "../../starship/data/starship.model";
 import {initialPerson, Person} from "../../person/data/person.model";
 
-export type Player =
+export interface Player
   {
     name: string,
     score: number,

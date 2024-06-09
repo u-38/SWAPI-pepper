@@ -4,9 +4,7 @@ import { FeaturePersonComponent } from '../../person/feature-person/feature-pers
 import { FeatureStarshipComponent } from '../../starship/feature-starship/feature-starship.component';
 import { SettingsService } from '../../shared/settings/data/settings.service';
 import { FightType } from '../../game/data/fight-type.model';
-import { initialPlayer, Player } from '../data/player';
 import { Person } from '../../person/data/person.model';
-import { Starship } from '../../starship/data/starship.model';
 import { BehaviorSubject } from 'rxjs';
 import { NgIf } from '@angular/common';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
