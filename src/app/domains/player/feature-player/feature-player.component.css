@@ -1,0 +1,16 @@
+.star-wars-card {
+  background-color: #000;
+  border: 2px solid #ffd700;
+  border-radius: 15px;
+  color: #fff;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.star-wars-card p {
+  margin: 10px 0;
+}
