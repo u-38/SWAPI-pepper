@@ -4,6 +4,7 @@
       class="big-button"
       mat-raised-button
       color="accent"
+      data-id="reset-button"
       (click)="resetGame()"
       *ngIf="winnerDetermined"
     >
@@ -21,6 +22,7 @@
           class="big-button"
           mat-raised-button
           color="primary"
+          data-id="play-button"
           (click)="playGame()"
           *ngIf="!playGameDirty"
         >
@@ -28,7 +30,7 @@
         </button>
       </div>
       <div *ngIf="countdown > 0 && playGameDirty">
-        <p>Game starts in {{ countdown }}...</p>
+        <p data-id="countdown">Game starts in {{ countdown }}...</p>
       </div>
       <div class="winner-img">
         <img ngSrc="img.png" height="163" width="203" priority alt="fight image">
@@ -37,13 +39,14 @@
 
     <ng-container *ngIf="!winnerDetermined">
       <ng-container *ngFor="let player of players">
-        <app-feature-player (playerLoaded)="onPlayerLoaded($event)" [player]="player" class="margin"></app-feature-player>
+        <app-feature-player data-id="feature-player" (playerLoaded)="onPlayerLoaded($event)" [player]="player" class="margin"></app-feature-player>
       </ng-container>
     </ng-container>
 
     <app-winner
       *ngIf="winnerDetermined && !playGameDirty"
       [battleData]="battleData"
+      data-id="winner-card"
     ></app-winner>
   </div>
 </div>
