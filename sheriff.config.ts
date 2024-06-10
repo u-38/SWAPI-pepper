@@ -5,7 +5,6 @@ import {noDependencies, sameTag, SheriffConfig} from '@softarc/sheriff-core';
   PR in https://github.com/softarc-consulting/sheriff/pull/89
   */
 
-
 export const config: SheriffConfig = {
   tagging: {
     'src/app': {
