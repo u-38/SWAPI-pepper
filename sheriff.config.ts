@@ -1,10 +1,10 @@
 import {noDependencies, sameTag, SheriffConfig} from '@softarc/sheriff-core';
 
 /**
-  * Minimal configuration for Sheriff
-  * Assigns the 'noTag' tag to all modules and
-  * allows all modules to depend on each other.
+  NOT OPERATIONAL in new eslint
+  PR in https://github.com/softarc-consulting/sheriff/pull/89
   */
+
 
 export const config: SheriffConfig = {
   tagging: {
