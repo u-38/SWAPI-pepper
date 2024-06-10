@@ -8,7 +8,6 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/star-wars-battle-game.git
-   cd swapi
+   git clone https://github.com/u-38/SWAPI-pepper.git
    npm install
    npm start
